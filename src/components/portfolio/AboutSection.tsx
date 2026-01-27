@@ -50,7 +50,7 @@ const AboutSection = () => {
                 className="absolute -top-2 -right-2 glass-card rounded-xl p-4 shadow-lg"
               >
                 <MapPin className="w-6 h-6 text-primary mb-1" />
-                <span className="text-xs font-medium">Saudi Arabia</span>
+                <span className="text-xs font-medium">&nbsp; India &nbsp; &nbsp; &nbsp;</span>
               </motion.div>
               
               <motion.div
@@ -59,7 +59,7 @@ const AboutSection = () => {
                 className="absolute -bottom-2 -left-2 glass-card rounded-xl p-4 shadow-lg"
               >
                 <Globe className="w-6 h-6 text-primary mb-1" />
-                <span className="text-xs font-medium">&nbsp; India &nbsp; &nbsp; &nbsp;</span>
+                <span className="text-xs font-medium">Saudi Arabia</span>
               </motion.div>
             </div>
           </motion.div>
