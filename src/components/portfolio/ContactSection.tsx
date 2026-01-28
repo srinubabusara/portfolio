@@ -4,34 +4,31 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, Mail, Linkedin, Github, ArrowRight } from "lucide-react";
+import { Send, Mail, Linkedin, Github, ArrowRight, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
+
+    // Simulate failed submission
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    
-    setFormData({ name: "", email: "", message: "" });
+
+    // Show error modal
+    setShowErrorModal(true);
     setIsSubmitting(false);
   };
 
@@ -46,8 +43,9 @@ const ContactSection = () => {
     <section id="contact" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--primary)/0.05)_0%,transparent_60%)]" />
-      
+
       <div className="container px-4 relative z-10" ref={ref}>
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -91,7 +89,7 @@ const ContactSection = () => {
                     className="h-12"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                     Email Address
@@ -107,7 +105,7 @@ const ContactSection = () => {
                     className="h-12"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                     Your Message
@@ -123,7 +121,7 @@ const ContactSection = () => {
                     className="resize-none"
                   />
                 </div>
-                
+
                 <Button 
                   type="submit" 
                   variant="hero" 
@@ -144,7 +142,7 @@ const ContactSection = () => {
             </div>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Right Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -161,13 +159,14 @@ const ContactSection = () => {
                   solution, I'm here to help bring your vision to life with cutting-edge technology.
                 </p>
               </div>
-              
+
               {/* Social Links */}
               <div className="space-y-4">
                 <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">
                   Connect With Me
                 </h4>
                 <div className="flex flex-col gap-3">
+                  {/* Email */}
                   <a 
                     href="mailto:srinubabu.sara@gmail.com"
                     className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-lg transition-all duration-300 group"
@@ -181,7 +180,8 @@ const ContactSection = () => {
                     </div>
                     <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
                   </a>
-                  
+
+                  {/* LinkedIn */}
                   <a 
                     href="https://linkedin.com/in/srinubabusara"
                     target="_blank"
@@ -197,7 +197,8 @@ const ContactSection = () => {
                     </div>
                     <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
                   </a>
-                  
+
+                  {/* GitHub */}
                   <a 
                     href="https://github.com/srinubabusara"
                     target="_blank"
@@ -219,6 +220,33 @@ const ContactSection = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Error Modal */}
+      {showErrorModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white rounded-2xl p-8 w-11/12 max-w-md text-center shadow-xl relative"
+          >
+            <button
+              onClick={() => setShowErrorModal(false)}
+              className="absolute top-4 right-4 text-muted-foreground hover:text-red-500 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <h3 className="text-xl font-bold text-red-600 mb-4">Oops!</h3>
+            <p className="text-muted-foreground mb-6">
+              Unable to send your request right now. Please try again later.
+            </p>
+            <Button onClick={() => setShowErrorModal(false)} className="w-full">
+              Close
+            </Button>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 };

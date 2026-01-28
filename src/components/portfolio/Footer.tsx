@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter, Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -19,6 +19,13 @@ const Footer = () => {
               </span>
             </div>
 
+            {/* About Me Section */}
+            {/* <div className="text-center md:text-left">
+              <p className="text-sm text-background/60">
+                Passionate about building innovative solutions with a focus on AI, modern frontend frameworks, and scalable backend systems. Let's connect and collaborate!
+              </p>
+            </div> */}
+
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
@@ -29,7 +36,7 @@ const Footer = () => {
                 <Mail className="w-5 h-5 text-background" />
               </a>
               <a
-                 href="https://linkedin.com/in/srinubabusara"
+                href="https://linkedin.com/in/srinubabusara"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
@@ -46,16 +53,44 @@ const Footer = () => {
               >
                 <Github className="w-5 h-5 text-background" />
               </a>
+              <a
+                href="https://twitter.com/srinubabusara"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5 text-background" />
+              </a>
+              <a
+                href="https://instagram.com/srinubabu_sara"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5 text-background" />
+              </a>
+              <a
+                href="https://facebook.com/srinubabusara"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5 text-background" />
+              </a>
             </div>
           </div>
 
-          {/* <div className="border-t border-background/10 pt-8">
+          {/* Copyright Notice */}
+          <div className="border-t border-background/10 pt-8">
             <div className="justify-between text-center gap-4 text-sm text-background/60">
               <p>
-                © {currentYear} Sara All rights reserved.
+                © {currentYear} SrinubabuSara. All rights reserved.
               </p>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </footer>

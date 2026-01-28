@@ -39,7 +39,7 @@ const Navigation = () => {
           <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-lg">SS</span>
           </div>
-          <span className="font-bold text-xl text-foreground hidden sm:block">
+          <span className="font-bold text-xl text-foreground">
             SRINUBABU SARA
           </span>
         </a>

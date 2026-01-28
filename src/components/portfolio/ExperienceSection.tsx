@@ -171,7 +171,7 @@ const ExperienceSection = () => {
                     {/* Meta info */}
                     <div className={`flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
                       <span className="flex items-center gap-1.5">
-                        <Calendar className="w-4 h-4" />
+                        <Calendar className="w-4 h-4" /> {exp.duration}
                       </span>
                       <span className="flex items-center gap-1.5">
                         <MapPin className="w-4 h-4" />

@@ -1,114 +1,85 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Server, Brain, Database, Wrench } from "lucide-react";
+import { FaReact, FaNodeJs, FaRobot, FaDatabase, FaTools } from "react-icons/fa"; // React Icons
 
+// Tech Categories Array
 const techCategories = [
   {
     title: "Frontend",
-    icon: Code2,
+    icon: FaReact, // React Icon
     technologies: [
-      "React.js", "TypeScript", "ECMAScript", "JavaScript", "HTML5", "CSS3", 
-      "Tailwind CSS", "Bootstrap", "SCSS", "LESS", "SASS", "Media Queries", "jQuery", "EJS"
+      "React.js", "TypeScript", "JavaScript", "HTML5", "CSS3",
+      "Tailwind CSS", "Bootstrap", "SCSS", "LESS", "SASS", "jQuery", "EJS"
     ],
     gradient: "from-blue-500 via-cyan-500 to-teal-400",
-    iconBg: "bg-blue-500/10",
-    iconColor: "text-blue-500"
+    iconBg: "bg-blue-500/20",
+    iconColor: "text-blue-500",
   },
   {
     title: "Backend",
-    icon: Server,
-    technologies: [
-      "Node.js", "Express.js", "Java Spring Boot", "REST APIs"
-    ],
+    icon: FaNodeJs, // Node.js Icon
+    technologies: ["Node.js", "Express.js", "Java Spring Boot", "REST APIs"],
     gradient: "from-emerald-500 via-green-500 to-lime-400",
-    iconBg: "bg-emerald-500/10",
-    iconColor: "text-emerald-500"
+    iconBg: "bg-emerald-500/20",
+    iconColor: "text-emerald-500",
   },
   {
     title: "AI & Automation",
-    icon: Brain,
+    icon: FaRobot, // AI/Automation Icon
     technologies: [
-      "LLM Prompt Engineering", "Generative AI APIs", "AI Workflow Design", "Smart Assistants", "Auto-Document Generation"
+      "LLM Prompt Engineering", "Generative AI APIs",
+      "AI Workflow Design", "Smart Assistants", "Auto-Document Generation"
     ],
     gradient: "from-purple-500 via-pink-500 to-rose-400",
-    iconBg: "bg-purple-500/10",
-    iconColor: "text-purple-500"
+    iconBg: "bg-purple-500/20",
+    iconColor: "text-purple-500",
   },
   {
     title: "Database",
-    icon: Database,
-    technologies: [
-      "MongoDB", "PostgreSQL", "SQL"
-    ],
+    icon: FaDatabase, // Database Icon
+    technologies: ["MongoDB", "PostgreSQL", "SQL"],
     gradient: "from-orange-500 via-amber-500 to-yellow-400",
-    iconBg: "bg-orange-500/10",
-    iconColor: "text-orange-500"
+    iconBg: "bg-orange-500/20",
+    iconColor: "text-orange-500",
   },
   {
     title: "Tools & Platforms",
-    icon: Wrench,
-    technologies: [
-      "Git", "SVN", "WordPress", "Figma", "Photoshop", "Media Queries"
-    ],
+    icon: FaTools, // Tools Icon
+    technologies: ["Git", "SVN", "WordPress", "Figma", "Photoshop", "Media Queries"],
     gradient: "from-indigo-500 via-violet-500 to-purple-400",
-    iconBg: "bg-indigo-500/10",
-    iconColor: "text-indigo-500"
-  }
+    iconBg: "bg-indigo-500/20",
+    iconColor: "text-indigo-500",
+  },
 ];
 
+// Main TechStack Section Component
 const TechStackSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="techstack" className="py-24 bg-background relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-accent/5 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-      <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-primary/5 to-transparent rounded-full blur-3xl translate-x-1/2" />
+    <section id="techstack" className="relative py-24 bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
       
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full bg-primary/20"
-            style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + (i % 3) * 25}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 3 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
-          />
-        ))}
-      </div>
-      
-      <div className="container px-4 relative z-10" ref={ref}>
+      {/* Decorative Blurred Circles */}
+      <div className="absolute -top-24 -left-24 w-[500px] h-[500px] bg-gradient-to-tr from-pink-300/30 to-purple-400/10 rounded-full blur-3xl" />
+      <div className="absolute -bottom-32 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-blue-300/20 to-cyan-200/10 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-6 relative z-10" ref={ref}>
+        
+        {/* Section Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
-          >
-            <Code2 className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary uppercase tracking-wider">
-              Tech Stack
-            </span>
-          </motion.div>
+          <div className="inline-flex items-center gap-3 px-5 py-2 mb-4 rounded-full bg-gradient-to-r from-blue-100 via-cyan-100 to-teal-100 border border-blue-200">
+            <FaReact className="w-5 h-5 text-blue-600" />
+            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide">Tech Stack</span>
+          </div>
           
+                   
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             Technologies I{" "}
             <span className="relative">
@@ -126,79 +97,64 @@ const TechStackSection = () => {
             <span className="text-foreground font-medium"> powering enterprise-grade solutions worldwide.</span>
           </p>
         </motion.div>
-
-        <div className="max-w-6xl mx-auto space-y-6">
-          {techCategories.map((category, index) => (
+        {/* Tech Categories Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {techCategories.map((category, idx) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500"
             >
-              <div className="glass-card rounded-2xl p-6 md:p-8 hover:shadow-xl transition-all duration-500 border border-border/50 hover:border-primary/20">
-                <div className="flex flex-col lg:flex-row lg:items-center gap-6">
-                  {/* Category Header */}
-                  <div className="lg:w-56 flex-shrink-0">
-                    <div className="flex items-center gap-4">
-                      <motion.div
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        className={`w-12 h-12 rounded-xl ${category.iconBg} flex items-center justify-center`}
-                      >
-                        <category.icon className={`w-6 h-6 ${category.iconColor}`} />
-                      </motion.div>
-                      <div>
-                        <h3 className="text-lg font-bold text-foreground">{category.title}</h3>
-                        <div className={`h-1 w-16 rounded-full bg-gradient-to-r ${category.gradient} mt-1`} />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-3">
-                    {category.technologies.map((tech, techIndex) => (
-                      <motion.span
-                        key={techIndex}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ duration: 0.3, delay: index * 0.1 + techIndex * 0.03 }}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        className={`
-                          relative px-4 py-2.5 rounded-xl text-sm font-medium cursor-default
-                          bg-secondary/80 text-foreground border border-border/50
-                          hover:border-transparent hover:text-white
-                          transition-all duration-300 overflow-hidden group/tech
-                        `}
-                      >
-                        <span className={`
-                          absolute inset-0 bg-gradient-to-r ${category.gradient} opacity-0 
-                          group-hover/tech:opacity-100 transition-opacity duration-300
-                        `} />
-                        <span className="relative z-10">{tech}</span>
-                      </motion.span>
-                    ))}
-                  </div>
+              {/* Category Header */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className={`p-4 rounded-xl ${category.iconBg} flex items-center justify-center`}>
+                  <category.icon className={`w-6 h-6 ${category.iconColor}`} />
                 </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900">{category.title}</h3>
+                  <div className={`h-1 w-16 rounded-full mt-1 bg-gradient-to-r ${category.gradient}`} />
+                </div>
+              </div>
+
+              {/* Tech List */}
+              <div className="flex flex-wrap gap-3 mt-4">
+                {category.technologies.map((tech, tIdx) => (
+                  <motion.span
+                    key={tIdx}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.3, delay: idx * 0.1 + tIdx * 0.03 }}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    className="relative px-4 py-2 rounded-xl text-sm font-medium text-gray-800 border border-gray-200 bg-white/50 hover:bg-gradient-to-r hover:from-blue-400 hover:via-purple-400 hover:to-pink-400 hover:text-white cursor-default transition-all duration-300"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Stats footer */}
+        {/* Stats Footer */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 flex flex-wrap justify-center gap-8 md:gap-16"
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="mt-16 flex flex-wrap justify-center gap-10"
         >
           {[
             { number: "30+", label: "Technologies" },
             { number: "10+", label: "Years Mastery" },
             { number: "100%", label: "Code Quality" },
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-gradient">{stat.number}</div>
-              <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+          ].map((stat, idx) => (
+            <div key={idx} className="text-center">
+              <div className="text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+                {stat.number}
+              </div>
+              <div className="mt-1 text-gray-500 text-sm">{stat.label}</div>
             </div>
           ))}
         </motion.div>
