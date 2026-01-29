@@ -22,91 +22,125 @@ const AboutSection = () => {
       <div className="container px-4" ref={ref}>
         <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
           {/* Left side - Image/Visual */}
-         <motion.div
+       <motion.div
   initial={{ opacity: 0, x: -50 }}
   animate={isInView ? { opacity: 1, x: 0 } : {}}
   transition={{ duration: 0.8, ease: "easeOut" }}
   className="relative"
 >
   <div className="relative aspect-square max-w-md mx-auto flex items-center justify-center">
-    
-    {/* 1. Outer Orbiting Ring (Dashed) */}
-    <motion.div 
+
+    {/* 1. Outer Orbit Ring */}
+    <motion.div
       animate={{ rotate: 360 }}
       transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-      className="absolute inset-0 rounded-full border-2 border-dashed border-indigo-200/50" 
+      className="absolute inset-0 rounded-full border-2 border-dashed border-indigo-200/50"
     />
-    
-    {/* 2. Floating Background Glows */}
-    <div className="absolute top-10 left-10 w-32 h-32 bg-blue-400/20 blur-[60px] rounded-full animate-pulse" />
-    <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-400/20 blur-[60px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
 
-    {/* 3. Middle Pulsing Glass Ring */}
-    <motion.div 
-      animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
+    {/* 2. Soft Background Glows */}
+    <div className="absolute top-10 left-10 w-32 h-32 bg-blue-400/20 blur-[60px] rounded-full animate-pulse" />
+    <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-400/20 blur-[60px] rounded-full animate-pulse delay-2000" />
+
+    {/* 3. Glass Pulse Ring */}
+    <motion.div
+      animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.5, 0.25] }}
       transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute inset-12 rounded-full bg-gradient-to-tr from-blue-100/20 to-purple-100/20 border border-white/50 shadow-inner" 
+      className="absolute inset-12 rounded-full bg-gradient-to-tr from-blue-100/20 to-purple-100/20 border border-white/50"
     />
-    
-    {/* 4. Main Center Identity Circle */}
-    <motion.div 
-      whileHover={{ scale: 1.05, rotate: 2 }}
-      className="relative z-10 w-80 h-80 rounded-full bg-white shadow-[0_20px_50px_rgba(31,38,135,0.15)] flex items-center justify-center border-[6px] border-white overflow-hidden"
+
+    {/* 4. Main Center Circle (Responsive Size) */}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className="
+        relative z-20
+        w-56 h-56        /* mobile */
+        sm:w-80 sm:h-80 /* desktop */
+        rounded-full
+        bg-white
+        shadow-[0_20px_50px_rgba(31,38,135,0.15)]
+        flex items-center justify-center
+        border-[6px] border-white
+        overflow-hidden
+      "
     >
-      {/* Internal Gradient Background */}
+      {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500" />
-      
-      <div className="relative z-20 text-center text-white">
-        <motion.div 
+
+      {/* Content */}
+      <div className="relative z-30 text-center text-white">
+        <motion.div
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : {}}
-          transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
-          className="text-7xl font-black tracking-tighter"
+          transition={{ type: "spring", stiffness: 120, delay: 0.4 }}
+          className="text-5xl sm:text-7xl font-black tracking-tight"
         >
-          10<span className="text-3xl text-cyan-300">+</span>
+          10<span className="text-2xl sm:text-3xl text-cyan-300">+</span>
         </motion.div>
-        <div className="text-[10px] uppercase tracking-[0.4em] font-bold opacity-70 mt-[-5px]">Years of</div>
-        <div className="text-xl font-extrabold tracking-tight">Excellence</div>
+        <div className="text-[10px] uppercase tracking-[0.35em] opacity-70 mt-1">
+          Years of
+        </div>
+        <div className="text-lg sm:text-xl font-extrabold">
+          Excellence
+        </div>
       </div>
 
-      {/* Subtle shine effect that passes over the circle */}
-      <motion.div 
+      {/* Shine Effect */}
+      <motion.div
         animate={{ x: [-150, 450] }}
         transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
         className="absolute top-0 left-0 w-24 h-full bg-white/20 skew-x-[25deg] blur-sm"
       />
     </motion.div>
-    
-    {/* 5. Floating Badge: India (Saffron/Green Theme) */}
+
+    {/* 5. INDIA Badge (Front + Mobile Safe) */}
     <motion.div
-      animate={{ y: [-10, 10, -10] }}
-      transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-      className="absolute top-6 -right-6 bg-white/90 backdrop-blur-md rounded-2xl px-4 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex items-center gap-3 border border-orange-100"
+      animate={{ y: [-8, 8, -8] }}
+      transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+      className="
+        absolute z-[60]
+        top-2 right-2
+        sm:top-6 sm:-right-6
+        bg-white/95 backdrop-blur-md
+        rounded-2xl px-4 py-2
+        shadow-lg flex items-center gap-3
+        border border-orange-100
+      "
     >
       <div className="flex flex-col gap-0.5">
-        <div className="w-4 h-1 bg-[#FF9933] rounded-full" /> {/* Saffron */}
-        <div className="w-4 h-1 bg-[#138808] rounded-full" /> {/* Green */}
+        <div className="w-4 h-1 bg-[#FF9933] rounded-full" />
+        <div className="w-4 h-1 bg-[#138808] rounded-full" />
       </div>
-      <div className="flex items-center gap-2">
-        <MapPin className="w-4 h-4 text-orange-600" />
-        <span className="text-sm font-bold text-slate-800 tracking-tight">India</span>
-      </div>
+      <MapPin className="w-4 h-4 text-orange-600" />
+      <span className="text-sm font-bold text-slate-800">
+        India
+      </span>
     </motion.div>
-    
-    {/* 6. Floating Badge: Saudi Arabia (Green Theme) */}
+
+    {/* 6. SAUDI ARABIA Badge (Front + Mobile Safe) */}
     <motion.div
-      animate={{ y: [10, -10, 10] }}
-      transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-      className="absolute bottom-6 -left-6 bg-white/90 backdrop-blur-md rounded-2xl px-4 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex items-center gap-3 border border-green-100"
+      animate={{ y: [8, -8, 8] }}
+      transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+      className="
+        absolute z-[60]
+        bottom-2 left-2
+        sm:bottom-6 sm:-left-6
+        bg-white/95 backdrop-blur-md
+        rounded-2xl px-4 py-2
+        shadow-lg flex items-center gap-2
+        border border-green-100
+      "
     >
-      <div className="bg-emerald-600 p-1.5 rounded-lg shadow-inner shadow-emerald-700/20">
+      <div className="bg-emerald-600 p-1.5 rounded-lg">
         <Globe className="w-4 h-4 text-white" />
       </div>
-      <span className="text-sm font-bold text-slate-800 tracking-tight whitespace-nowrap">Saudi Arabia</span>
+      <span className="text-sm font-bold text-slate-800 whitespace-nowrap">
+        Saudi Arabia
+      </span>
     </motion.div>
 
   </div>
 </motion.div>
+
 
           {/* Right side - Content */}
           <motion.div
