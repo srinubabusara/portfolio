@@ -2,27 +2,47 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logo from "../../assets/images/sslogo.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#techstack", label: "Tech Stack" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { to: "/", label: "Home" },
+  { to: "/#about", label: "About" },
+  { to: "/#expertise", label: "Expertise" },
+  { to: "/#techstack", label: "Tech Stack" },
+  { to: "/#experience", label: "Experience" },
+  { to: "/#projects", label: "Projects" },
+  { to: "/#contact", label: "Contact" },
 ];
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleHireMeClick = () => {
+    const contactSection = document.querySelector("#contact");
+
+    if (contactSection) {
+      // Smooth scroll if #contact exists
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Navigate to home page first, then scroll
+      navigate("/");
+      setTimeout(() => {
+        const el = document.querySelector("#contact");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <motion.header
@@ -35,32 +55,30 @@ const Navigation = () => {
     >
       <nav className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">SS</span>
+            <img src={logo} alt="Logo" className="p-2" />
           </div>
           <span className="font-bold text-xl text-foreground">
             SRINUBABU SARA
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <Link
+              key={link.to}
+              to={link.to}
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-        </div>
 
-        {/* CTA Button */}
-        <div className="hidden lg:block">
-          <Button variant="hero" size="default" asChild>
-            <a href="#contact">Hire Me</a>
+          {/* Desktop Hire Me */}
+          <Button variant="hero" size="default" onClick={handleHireMeClick}>
+            Hire Me
           </Button>
         </div>
 
@@ -70,11 +88,7 @@ const Navigation = () => {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6 text-foreground" />
-          ) : (
-            <Menu className="w-6 h-6 text-foreground" />
-          )}
+          {isMobileMenuOpen ? <X className="w-6 h-6 text-foreground" /> : <Menu className="w-6 h-6 text-foreground" />}
         </button>
       </nav>
 
@@ -88,19 +102,19 @@ const Navigation = () => {
         >
           <div className="container mx-auto px-4 py-6 space-y-4">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
+              <Link
+                key={link.to}
+                to={link.to}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-lg font-medium text-foreground hover:text-primary transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <Button variant="hero" size="lg" className="w-full mt-4" asChild>
-              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                Hire Me
-              </a>
+
+            {/* Mobile Hire Me */}
+            <Button variant="hero" size="lg" className="w-full mt-4" onClick={handleHireMeClick}>
+              Hire Me
             </Button>
           </div>
         </motion.div>

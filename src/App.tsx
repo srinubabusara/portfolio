@@ -1,8 +1,14 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Routes, Route } from "react-router-dom";
+
 import Index from "./pages/Index";
+import FresherGuide from "@/components/userguide/FresherGuide";
+import PrivacyPolicy from "@/components/userguide/PrivacyPolicy";
+import TermsAndConditions from "@/components/userguide/TermsAndConditions";
 
 const queryClient = new QueryClient();
 
@@ -11,7 +17,13 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <Index />
+      <ScrollToTop />
+<Routes>
+  <Route path="/" element={<Index />} />
+  <Route path="/fresher-guide" element={<FresherGuide />} />
+  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+  <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+</Routes>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Twitter, Instagram, Facebook } from "lucide-react";
+import logo from "../../assets/images/sslogo.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,26 +9,50 @@ const Footer = () => {
     <footer className="bg-foreground py-12">
       <div className="container px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-            {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-accent flex items-center justify-center">
-                <span className="text-white font-bold text-lg">SS</span>
+          <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
+            
+            {/* Left Section: Logo + Name + Address */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left gap-3">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-xl p-2 bg-gradient-accent flex items-center justify-center">
+                  <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
+                </div>
+                <span className="font-bold text-xl text-background">SrinubabuSara</span>
               </div>
-              <span className="font-bold text-xl text-background">
-                SrinubabuSara
-              </span>
+              <p className="text-sm text-background/60">
+                Hyderabad, Telangana <br />
+                India
+              </p>
             </div>
 
-            {/* About Me Section */}
-            {/* <div className="text-center md:text-left">
-              <p className="text-sm text-background/60">
-                Passionate about building innovative solutions with a focus on AI, modern frontend frameworks, and scalable backend systems. Let's connect and collaborate!
-              </p>
-            </div> */}
+            {/* Middle Section: Navigation Links */}
+            <div className="flex flex-col items-start text-sm text-background/70">
+              <ul className="list-disc pl-5 space-y-1">
+                {/* <li>
+                  <Link to="/" className="hover:text-background transition-colors">
+                    Home
+                  </Link>
+                </li> */}
+                <li>
+                  <Link to="/fresher-guide" className="hover:text-background transition-colors">
+                    New Joiners’ Guide
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className="hover:text-background transition-colors">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className="hover:text-background transition-colors">
+                    Terms & Conditions
+                  </Link>
+                </li> 
+              </ul>
+            </div>
 
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
+            {/* Right Section: Social Icons */}
+            <div className="flex flex-wrap items-center gap-4">
               <a
                 href="mailto:srinubabu.sara@gmail.com"
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
@@ -83,13 +108,9 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Copyright Notice */}
-          <div className="border-t border-background/10 pt-8">
-            <div className="justify-between text-center gap-4 text-sm text-background/60">
-              <p>
-                © {currentYear} SrinubabuSara. All rights reserved.
-              </p>
-            </div>
+          {/* Copyright */}
+          <div className="border-t border-background/10 pt-8 text-center text-sm text-background/60">
+            <p>© {currentYear} SrinubabuSara. All rights reserved.</p>
           </div>
         </div>
       </div>
