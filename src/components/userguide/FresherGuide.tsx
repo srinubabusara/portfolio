@@ -370,14 +370,17 @@ export default function CareerGrid() {
 
       
     <div className="bg-gray-50 p-6 md:p-16 font-sans">
+      
       {/* Grid */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        
         {techDomains.map((item) => (
           <div 
             key={item.id}
             onClick={() => setSelected(item)}
             className="p-4 group relative bg-white rounded-[1rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer border border-gray-100 hover:-translate-y-1"
           >
+            <div className={`absolute inset-0 bg-gradient-to-t ${item.color} opacity-10`} />
             <div className="h-48 overflow-hidden">
               <img 
                 src={item.image} 
@@ -385,7 +388,7 @@ export default function CareerGrid() {
                 className="w-full rounded-[1rem] h-full object-cover group-hover:scale-110 transition-transform duration-700" 
               />
             </div>
-            <div className="p-8 pt-10 relative">
+            <div className="p-8 pt-10 relative ">
               <div className={`absolute -top-10 left-8 p-5 rounded-2xl bg-gradient-to-br ${item.color} text-white shadow-xl`}>
                 {item.icon}
               </div>
@@ -406,10 +409,10 @@ export default function CareerGrid() {
             
             {/* Header Image */}
             <div className={`h-40 relative bg-gradient-to-r ${selected.color}`}>
-              <img src={selected.image} className="w-full h-full object-cover mix-blend-overlay opacity-40" alt={selected.title} />
+              <img src={selected.image} className="w-full h-full object-cover mix-blend-overlay opacity-50" alt={selected.title} />
               <button 
                 onClick={() => setSelected(null)} 
-                className="absolute top-8 right-8 p-3 bg-white/20 hover:bg-white text-white hover:text-slate-900 rounded-full transition-all"
+                className="absolute top-3 right-3 p-2 bg-white/20 hover:bg-white text-white hover:text-slate-900 rounded-full transition-all z-20"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -439,24 +442,65 @@ export default function CareerGrid() {
                 </div>
 
                 {/* Salary Section */}
-                <div className="bg-gradient-to-r from-slate-100 via-sky-100 to-indigo-200 rounded-[2rem] p-8 text-black">
-                  <h4 className="flex items-center text-lg font-bold mb-6 text-[#D96281]">
-                    <Briefcase className="mr-3" /> Monthly Salaries
-                  </h4>
-                  <div className="space-y-4">
-                    {selected.salaries.map((s, i) => (
-                      <div key={i} className="flex justify-between border-b border-white/10 pb-3 last:border-0">
-                        <span className="text-black">{s.level}</span>
-                        <span className="font-black text-blue-700">{s.amount}</span>
-                      </div>
-                    ))}
-                  </div>
-                  {selected.note && (
-                    <div className="mt-8 text-sm italic text-blue-800 bg-white/5 p-4 rounded-xl">
-                      {selected.note}
-                    </div>
-                  )}
-                </div>
+<div className="relative">
+
+  <div className={`relative rounded-[2.5rem] p-[1.5px] bg-gradient-to-r ${selected.color} shadow-[0_20px_50px_rgba(0,0,0,0.12)]`}>
+
+    <div className="relative bg-white/85 backdrop-blur-xl rounded-[2.5rem] p-6 overflow-hidden">
+
+      <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${selected.color}`} />
+
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className={`p-4 rounded-2xl bg-gradient-to-r ${selected.color} text-white shadow-lg`}>
+          <Briefcase size={20} />
+        </div>
+
+        <div>
+          <h4 className="text-xl font-bold text-slate-800">
+            Monthly Salaries
+          </h4>
+          <p className="text-sm text-slate-500">
+            Compensation Structure
+          </p>
+        </div>
+      </div>
+
+      {/* Salary Cards */}
+      <div className="space-y-4">
+        {selected.salaries.map((s, i) => (
+          <div
+            key={i}
+            className="group relative flex items-center justify-between px-3 py-2 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-all duration-300"
+          >
+            <div
+              className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-10 bg-gradient-to-r ${selected.color} transition-opacity duration-300`}
+            />
+
+            <span className="relative z-10 font-semibold text-slate-700">
+              {s.level}
+            </span>
+
+            <span className={`relative z-10 px-5 py-3 rounded-full text-sm font-bold text-white bg-gradient-to-r ${selected.color}`}>
+              {s.amount}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Note */}
+      {selected.note && (
+        <div className={`mt-5 p-3 rounded-2xl bg-gradient-to-r ${selected.color} text-white shadow-inner opacity-90`}>
+          <p className="text-[12px] italic leading-relaxed">
+            {selected.note}
+          </p>
+        </div>
+      )}
+
+    </div>
+  </div>
+</div>
+
               </div>
             </div>
           </div>
