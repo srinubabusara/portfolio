@@ -38,8 +38,13 @@ const Footer = () => {
                     New Joiners’ Guide
                   </Link>
                 </li>
+                                <li>
+                  <Link to="/react-question_answers" className="hover:text-background transition-colors">
+                   React FAQ 
+                  </Link>
+                </li>
                 <li>
-                  <Link to="/" className="hover:text-background transition-colors">
+                  <Link to="/privacy-policy" className="hover:text-background transition-colors">
                     Privacy Policy
                   </Link>
                 </li>

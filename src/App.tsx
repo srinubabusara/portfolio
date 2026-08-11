@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Index from "./pages/Index";
 import FresherGuide from "@/components/userguide/FresherGuide";
+import ReactIQS from "@/components/userguide/ReactIQS";
 import PrivacyPolicy from "@/components/userguide/PrivacyPolicy";
 import TermsAndConditions from "@/components/userguide/TermsAndConditions";
 
@@ -18,12 +19,13 @@ const App = () => (
       <Toaster />
       <Sonner />
       <ScrollToTop />
-<Routes>
-  <Route path="/" element={<Index />} />
-  <Route path="/fresher-guide" element={<FresherGuide />} />
-  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-  <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-</Routes>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/fresher-guide" element={<FresherGuide />} />
+         <Route path="/react-question_answers" element={<ReactIQS />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+      </Routes>
     </TooltipProvider>
   </QueryClientProvider>
 );
