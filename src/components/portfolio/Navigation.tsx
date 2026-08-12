@@ -7,11 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/#about", label: "About" },
-  { to: "/#expertise", label: "Expertise" },
-  { to: "/#techstack", label: "Tech Stack" },
-  { to: "/#experience", label: "Experience" },
-  { to: "/#projects", label: "Projects" },
+  { to: "/learning-hub", label: "Software Learning Hub" },
+  { to: "/fresher-guide", label: "New Joiners’ Guide" },
+  // { to: "/#about", label: "About" },
+  // { to: "/#expertise", label: "Expertise" },
+  // { to: "/#techstack", label: "Tech Stack" },
+  // { to: "/#experience", label: "Experience" },
+  // { to: "/#projects", label: "Projects" },
   { to: "/#contact", label: "Contact" },
 ];
 

@@ -33,23 +33,23 @@ const Footer = () => {
                     Home
                   </Link>
                 </li> */}
-                <li>
+                {/* <li>
                   <Link to="/fresher-guide" className="hover:text-background transition-colors">
                     New Joiners’ Guide
                   </Link>
                 </li>
-                                <li>
+                  <li>
                   <Link to="/react-question_answers" className="hover:text-background transition-colors">
                    React FAQ 
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/privacy-policy" className="hover:text-background transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="hover:text-background transition-colors">
+                  <Link to="/terms-and-conditions" className="hover:text-background transition-colors">
                     Terms & Conditions
                   </Link>
                 </li> 

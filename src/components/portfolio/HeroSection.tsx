@@ -62,7 +62,10 @@ const HeroSection = () => {
           >
             <span className="text-foreground">Senior Software Developer</span>
             <br />
-            <span className="text-gradient">&amp; AI Workflow Designer </span>
+             <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+         
+           AI Workflow Designer
+              </span>
           </motion.h1>
 
           {/* Sub-headline */}

@@ -65,6 +65,7 @@ const AboutSection = () => {
     >
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500" />
+        
 
       {/* Content */}
       <div className="relative z-30 text-center text-white">
