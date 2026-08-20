@@ -1,20 +1,22 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
 import logo from "../../assets/images/sslogo.png";
 import { Link, useNavigate } from "react-router-dom";
 
+// Internal nav links (using "to") and an external one (using "href")
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/learning-hub", label: "Software Learning Hub" },
   { to: "/fresher-guide", label: "New Joiners’ Guide" },
-  // { to: "/#about", label: "About" },
-  // { to: "/#expertise", label: "Expertise" },
-  // { to: "/#techstack", label: "Tech Stack" },
-  // { to: "/#experience", label: "Experience" },
-  // { to: "/#projects", label: "Projects" },
   { to: "/#contact", label: "Contact" },
+  {
+    href: "https://portfolio-srinubabusara.vercel.app/",
+    label: "AI Portfolio",
+    target: "_blank",
+    highlight: true, // flag to apply special styling
+  },
 ];
 
 const Navigation = () => {
@@ -30,19 +32,15 @@ const Navigation = () => {
 
   const handleHireMeClick = () => {
     const contactSection = document.querySelector("#contact");
-
     if (contactSection) {
-      // Smooth scroll if #contact exists
       contactSection.scrollIntoView({ behavior: "smooth" });
     } else {
-      // Navigate to home page first, then scroll
       navigate("/");
       setTimeout(() => {
         const el = document.querySelector("#contact");
         if (el) el.scrollIntoView({ behavior: "smooth" });
       }, 100);
     }
-
     setIsMobileMenuOpen(false);
   };
 
@@ -68,17 +66,38 @@ const Navigation = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            // External link
+            if (link.href) {
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target={link.target || "_self"}
+                  rel="noopener noreferrer"
+                  className={`text-sm font-medium transition-colors inline-flex items-center gap-1 ${
+                    link.highlight
+                      ? "bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600  text-primary-foreground px-4 py-2 rounded-full hover:shadow-lg hover:scale-105 transition-transform"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {link.label}
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              );
+            }
+            // Internal link
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            );
+          })}
 
-          {/* Desktop Hire Me */}
           <Button variant="hero" size="default" onClick={handleHireMeClick}>
             Hire Me
           </Button>
@@ -90,7 +109,11 @@ const Navigation = () => {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6 text-foreground" /> : <Menu className="w-6 h-6 text-foreground" />}
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6 text-foreground" />
+          ) : (
+            <Menu className="w-6 h-6 text-foreground" />
+          )}
         </button>
       </nav>
 
@@ -103,19 +126,44 @@ const Navigation = () => {
           className="lg:hidden glass border-t border-border"
         >
           <div className="container mx-auto px-4 py-6 space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-lg font-medium text-foreground hover:text-primary transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.href) {
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target={link.target || "_self"}
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block text-lg font-medium inline-flex items-center gap-2 ${
+                      link.highlight
+                        ? "bg-gradient-primary text-primary-foreground px-4 py-2 rounded-full w-fit"
+                        : "text-foreground hover:text-primary"
+                    }`}
+                  >
+                    {link.label}
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
 
-            {/* Mobile Hire Me */}
-            <Button variant="hero" size="lg" className="w-full mt-4" onClick={handleHireMeClick}>
+            <Button
+              variant="hero"
+              size="lg"
+              className="w-full mt-4"
+              onClick={handleHireMeClick}
+            >
               Hire Me
             </Button>
           </div>

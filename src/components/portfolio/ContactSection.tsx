@@ -1,11 +1,19 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, Mail, Linkedin, Github, ArrowRight, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
+
+// ===== EmailJS configuration (same as first component) =====
+const EMAILJS_SERVICE_ID = "service_ags";
+const EMAILJS_CONTACT_TEMPLATE_ID = "template_dwmb7vk";
+const EMAILJS_AUTOREPLY_TEMPLATE_ID = "template_pvnssqj";
+const EMAILJS_PUBLIC_KEY = "eAysmJSU58R1YoN42";
+const EMAIL = "srinubabu.sara@gmail.com";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -15,32 +23,85 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+
+  useEffect(() => {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate failed submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const { name, email, message } = formData;
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      toast({
+        title: "Missing fields",
+        description: "Please fill in all fields.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
-    // Show error modal
-    setShowErrorModal(true);
-    setIsSubmitting(false);
+    const templateParams = {
+      from_name: name,
+      name: name,
+      reply_to: email,
+      email: email,
+      user_email: email,
+      to_email: EMAIL,
+      message: message,
+      title: `Portfolio message from ${name}`,
+    };
+
+    try {
+      // Send to you
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_CONTACT_TEMPLATE_ID,
+        templateParams,
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
+      // Send auto-reply
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_AUTOREPLY_TEMPLATE_ID,
+        templateParams,
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
+
+      toast({
+        title: "Message sent!",
+        description:
+          "Thank you! A confirmation email is on its way — please check your spam/junk folder if you don't see it.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setShowErrorModal(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
   return (
-    <section id="contact" className="py-24 bg-background relative overflow-hidden">
+    <section
+      id="contact"
+      className="py-24 bg-background relative overflow-hidden"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--primary)/0.05)_0%,transparent_60%)]" />
 
@@ -56,27 +117,117 @@ const ContactSection = () => {
             Get In Touch
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Let's Build{" "}
-            <span className="text-gradient">Intelligent</span> &{" "}
+            Let's Build <span className="text-gradient">Intelligent</span> &{" "}
             <span className="text-gradient">Scalable</span> Solutions
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to transform your ideas into powerful, AI-enabled applications? 
-            Let's discuss your project.
+            Ready to transform your ideas into powerful, AI-enabled
+            applications? Let's discuss your project.
           </p>
         </motion.div>
 
+        {/* ===== SWAPPED COLUMNS: Left = Info, Right = Form ===== */}
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Contact Form */}
+          {/* LEFT COLUMN – Contact Info (now first, colorful, with gradient heading) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col justify-center"
+          >
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Ready to Start a Project?
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Whether you need a full-stack application, AI integration, or
+                  enterprise solution, I'm here to help bring your vision to
+                  life with cutting-edge technology.
+                </p>
+              </div>
+
+              {/* Social Links */}
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                  Connect With Me
+                </h4>
+                <div className="flex flex-col gap-3">
+                  <a
+                    href="mailto:srinubabu.sara@gmail.com"
+                    className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-lg transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Mail className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <span className="block font-medium text-foreground">
+                        Email
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        srinubabu.sara@gmail.com
+                      </span>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
+                  </a>
+
+                  <a
+                    href="https://linkedin.com/in/srinubabusara"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-lg transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Linkedin className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <span className="block font-medium text-foreground">
+                        LinkedIn
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        Professional Profile
+                      </span>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
+                  </a>
+
+                  <a
+                    href="https://github.com/srinubabusara"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-lg transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Github className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <span className="block font-medium text-foreground">
+                        GitHub
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        Open Source Projects
+                      </span>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* RIGHT COLUMN – Contact Form (now second) */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
             <div className="glass-card rounded-2xl p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Your Name
                   </label>
                   <Input
@@ -91,7 +242,10 @@ const ContactSection = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Email Address
                   </label>
                   <Input
@@ -107,7 +261,10 @@ const ContactSection = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Your Message
                   </label>
                   <Textarea
@@ -122,10 +279,10 @@ const ContactSection = () => {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  variant="hero" 
-                  size="lg" 
+                <Button
+                  type="submit"
+                  variant="hero"
+                  size="lg"
                   className="w-full"
                   disabled={isSubmitting}
                 >
@@ -141,87 +298,10 @@ const ContactSection = () => {
               </form>
             </div>
           </motion.div>
-
-          {/* Right Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col justify-center"
-          >
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Ready to Start a Project?
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Whether you need a full-stack application, AI integration, or enterprise 
-                  solution, I'm here to help bring your vision to life with cutting-edge technology.
-                </p>
-              </div>
-
-              {/* Social Links */}
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-                  Connect With Me
-                </h4>
-                <div className="flex flex-col gap-3">
-                  {/* Email */}
-                  <a 
-                    href="mailto:srinubabu.sara@gmail.com"
-                    className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-lg transition-all duration-300 group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Mail className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <span className="block font-medium text-foreground">Email</span>
-                      <span className="text-sm text-muted-foreground">srinubabu.sara@gmail.com</span>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
-                  </a>
-
-                  {/* LinkedIn */}
-                  <a 
-                    href="https://linkedin.com/in/srinubabusara"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-lg transition-all duration-300 group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Linkedin className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <span className="block font-medium text-foreground">LinkedIn</span>
-                      <span className="text-sm text-muted-foreground">Professional Profile</span>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
-                  </a>
-
-                  {/* GitHub */}
-                  <a 
-                    href="https://github.com/srinubabusara"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 glass-card rounded-xl hover:shadow-lg transition-all duration-300 group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Github className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <span className="block font-medium text-foreground">GitHub</span>
-                      <span className="text-sm text-muted-foreground">Open Source Projects</span>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary transition-colors" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
 
-      {/* Error Modal */}
+      {/* Error Modal (unchanged) */}
       {showErrorModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <motion.div
