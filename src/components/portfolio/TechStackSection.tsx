@@ -82,7 +82,7 @@ const techCategories = [
   {
     title: "Backend",
     icon: FaNodeJs,
-    technologies: ["Node.js", "Express.js", "Java Spring Boot", "REST APIs"],
+    technologies: ["Node.js", "Express.js", "Java Spring Boot", "REST APIs", "API Gateway", "Authentication & Authorization", "JWT & OAuth 2.0", "API Integration"],
     gradient: "from-emerald-500 via-green-500 to-lime-400",
     iconBg: "bg-emerald-500/10",
     iconColor: "text-emerald-500",
@@ -91,7 +91,7 @@ const techCategories = [
     title: "AI & Automation",
     icon: FaRobot,
     technologies: [
-      "LLM Prompt Engineering", "Generative AI APIs", "AI Workflow Design",
+      "LLM System Design", "Prompt Engineering", "Generative AI APIs", "AI Workflow Design",
       "Smart Assistants", "Auto-Document Generation",
     ],
     gradient: "from-purple-500 via-pink-500 to-rose-400",

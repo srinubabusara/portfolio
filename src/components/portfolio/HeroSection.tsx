@@ -98,7 +98,7 @@ const HeroSection = () => {
           >
             10+ Years of Experience in Full Stack Development, MERN Stack &
             GenAI Developer | Vercel | AWS Lambda | API Gateway | IAM | DynamoDB
-            | GitHub Actions CI/CD
+            | GitHub Copilot | GitHub Actions CI/CD
           </motion.p>
 
           <motion.p

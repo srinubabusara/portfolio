@@ -8,11 +8,11 @@ const expertiseAreas = [
     icon: Brain,
     title: "AI & LLM Workflow Integration",
     items: [
-      "LLM prompt engineering & system instruction design",
-      "Generative AI API integration",
-      "AI-powered assistants, chatbots, auto-document generation",
-      "Intelligent UI automation using AI workflows"
-    ]
+      "LLM Engineering, Prompt Design & System Architecture",
+      "AI API Integration & Application Development",
+      "AI assistants, chatbots & automation",
+      "GitHub Copilot & AI-assisted development",
+    ],
   },
   {
     icon: Globe,
@@ -21,8 +21,8 @@ const expertiseAreas = [
       "React.js with reusable components & hooks",
       "Node.js, Express.js, Java Spring Boot",
       "RESTful API design & secure middleware handling",
-      "End-to-end client–server architecture"
-    ]
+      "End-to-end client–server architecture",
+    ],
   },
   {
     icon: Palette,
@@ -31,8 +31,8 @@ const expertiseAreas = [
       "Responsive UI with React, Tailwind, Bootstrap",
       "Advanced form UX, validations & accessibility",
       "Design consistency, UI bug fixing & optimization",
-      "Figma & Photoshop driven UI workflows"
-    ]
+      "Figma & Photoshop driven UI workflows",
+    ],
   },
   {
     icon: Database,
@@ -41,9 +41,9 @@ const expertiseAreas = [
       "Modular backend service architecture",
       "MongoDB, PostgreSQL & SQL schema design",
       "Multi-layer validation & performance optimization",
-      "Secure data management & API security"
-    ]
-  }
+      "Secure data management & API security",
+    ],
+  },
 ];
 
 const ExpertiseSection = () => {
@@ -51,10 +51,13 @@ const ExpertiseSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="expertise" className="py-24 bg-secondary/30 relative overflow-hidden">
+    <section
+      id="expertise"
+      className="py-24 bg-secondary/30 relative overflow-hidden"
+    >
       {/* Background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.03)_0%,transparent_70%)]" />
-      
+
       <div className="container px-4 relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -70,8 +73,8 @@ const ExpertiseSection = () => {
             <span className="text-gradient">Technologies</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive skill set spanning AI integration, full-stack development, 
-            and enterprise-grade architecture.
+            A comprehensive skill set spanning AI integration, full-stack
+            development, and enterprise-grade architecture.
           </p>
         </motion.div>
 
@@ -93,12 +96,14 @@ const ExpertiseSection = () => {
                     {area.title}
                   </h3>
                 </div>
-                
+
                 <ul className="space-y-3">
                   {area.items.map((item, itemIndex) => (
                     <li key={itemIndex} className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-gradient-accent mt-2.5 flex-shrink-0" />
-                      <span className="text-muted-foreground leading-relaxed">{item}</span>
+                      <span className="text-muted-foreground leading-relaxed">
+                        {item}
+                      </span>
                     </li>
                   ))}
                 </ul>
